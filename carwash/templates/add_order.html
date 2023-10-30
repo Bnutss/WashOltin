@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OltinWash - Создание заказа</title>
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5 mt-5">
+            <div class="shadow border rounded p-4">
+                <h2 class="text-center font-weight-bold mb-4">Создание заказа</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group mt-4 {% if form.car_name.errors %}has-error{% endif %}">
+                        <label for="{{ form.car_name.id_for_label }}"><strong>Название машины</strong></label>
+                        <input type="text"
+                               class="form-control mt-2 {% if form.car_name.errors %}is-invalid{% endif %}"
+                               id="DepartmentsNameInput" name="{{ form.car_name.name }}">
+                        {% if form.car_name.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.car_name.errors|join:", " }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group mt-4 {% if form.car_number.errors %}has-error{% endif %}">
+                        <label for="{{ form.car_number.id_for_label }}"><strong>Номер авто</strong></label>
+                        <input type="text"
+                               class="form-control mt-2 {% if form.car_number.errors %}is-invalid{% endif %}"
+                               id="DepartmentsNameInput" name="{{ form.car_number.name }}">
+                        {% if form.car_number.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.car_number.errors|join:", " }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group mt-4 {% if form.car_owner_name.errors %}has-error{% endif %}">
+                        <label for="{{ form.car_owner_name.id_for_label }}"><strong>Имя владельца авто</strong></label>
+                        <input type="text"
+                               class="form-control mt-2 {% if form.car_owner_name.errors %}is-invalid{% endif %}"
+                               id="DepartmentsNameInput" name="{{ form.car_owner_name.name }}">
+                        {% if form.car_owner_name.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.car_owner_name.errors|join:", " }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group mt-4 {% if form.type_of_car_wash.errors %}has-error{% endif %}">
+                        <label for="{{ form.type_of_car_wash.id_for_label }}"><strong>Вид услуги</strong></label>
+                        <select class="form-select mt-2 {% if form.type_of_car_wash.errors %}is-invalid{% endif %}"
+                                id="{{ form.type_of_car_wash.id_for_label }}" name="{{ form.type_of_car_wash.name }}">
+                            <option selected disabled>Выберите услугу</option>
+                            {% for type_of_car_wash in form.type_of_car_wash.field.choices %}
+                                <option value="{{ type_of_car_wash.0 }}">{{ type_of_car_wash.1 }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if form.type_of_car_wash.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.type_of_car_wash.errors|join:", " }}
+                            </div>
+                        {% endif %}
+                        <div class="form-group mt-4 {% if form.employees.errors %}has-error{% endif %}">
+                            <label for="{{ form.employees.id_for_label }}"><strong>Мойщик</strong></label>
+                            <select class="form-select mt-2 {% if form.employees.errors %}is-invalid{% endif %}"
+                                    id="{{ form.employees.id_for_label }}"
+                                    name="{{ form.employees.name }}">
+                                <option selected disabled>Выберите мойщика</option>
+                                {% for employees in form.employees.field.choices %}
+                                    <option value="{{ employees.0 }}">{{ employees.1 }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if form.employees.errors %}
+                                <div class="invalid-feedback">
+                                    {{ form.employees.errors|join:", " }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-success" style="margin-right: 20px;">Сохранить</button>
+                            <a href="{% url 'carwash:main_menu' %}" class="btn btn-dark">
+                                <i class="fas fa-arrow-left"></i> Назад
+                            </a>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+</body>
+</html>
